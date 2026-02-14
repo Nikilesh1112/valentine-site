@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>A Very Important Question 💖</title>
+
+<!-- ========= EASY EDIT ZONE ========= -->
+<script>
+const GIRL_NAME = "Priyanti";
+const DATE_TIME = "Feb 14, 2026 20:00:00";
+const DATE_PLACE = "501 Swarnagiri Apartment";
+
+const MUSIC_LINK = "https://raw.githubusercontent.com/Nikilesh1112/valentine-site/main/backgroundmusicforvideos-romantics-love-valentines-day-481993.mp3";
+const CELEBRATION_GIF = "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDJidnF3b3BrOTB2bnRudGt6YjQ5enU5bjFyd3AwM3pkYmFobmQweCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7IiKzMst8DNU4/giphy.gif";
+</script>
+<!-- ================================== -->
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#6a11cb,#ff4da6);
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+}
+
+/* floating hearts */
+.heart{
+  position:fixed;
+  bottom:-10px;
+  font-size:22px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{ transform:translateY(-110vh); opacity:0;}
+}
+
+.card{
+  text-align:center;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(14px);
+  padding:40px;
+  border-radius:25px;
+  width:380px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+
+h1{margin:10px;}
+h2{margin:5px;}
+
+button{
+  padding:15px 30px;
+  border:none;
+  border-radius:18px;
+  font-size:18px;
+  cursor:pointer;
+  margin:12px;
+  transition:0.3s;
+}
+
+#yes{
+  background:#ff4da6;
+  color:white;
+  box-shadow:0 6px 18px rgba(0,0,0,0.4);
+}
+
+#no{
+  background:#e0e0e0;
+  position:absolute;
+}
+
+#comment{
+  margin-top:15px;
+  color:#ffd6f6;
+  font-weight:bold;
+}
+
+.hidden{display:none;}
+
+#countdown{margin-top:10px;font-size:18px;}
+img{border-radius:18px;margin-top:10px;}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Music -->
+<audio autoplay loop>
+  <source src="" id="musicSrc" type="audio/mp3">
+</audio>
+
+<!-- Question Card -->
+<div class="card" id="questionBox">
+  <h2 id="name"></h2>
+  <h1>Will you be my Valentine? 💖</h1>
+
+  <button id="yes">YES 😍</button>
+  <button id="no">NO 🙈</button>
+
+  <p id="comment">Don't even think about pressing NO 😤</p>
+  <div id="countdown"></div>
+</div>
+
+<!-- YES Screen -->
+<div class="card hidden" id="yesScreen">
+  <h1>IT'S A DATE 🕺💃</h1>
+  <h2 id="finalText"></h2>
+  <img id="gif" width="320">
+</div>
+
+<script>
+document.getElementById("musicSrc").src=MUSIC_LINK;
+document.getElementById("name").innerText=GIRL_NAME+" 💜";
+document.getElementById("gif").src=CELEBRATION_GIF;
+document.getElementById("finalText").innerHTML=
+"📍 "+DATE_PLACE+"<br>⏰ 8:00 PM<br>Be ready & be on time 😌";
+
+/* Countdown */
+const countDate=new Date(DATE_TIME).getTime();
+setInterval(()=>{
+  const now=new Date().getTime();
+  const d=countDate-now;
+  const days=Math.floor(d/(1000*60*60*24));
+  const hrs=Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  const mins=Math.floor((d%(1000*60*60))/(1000*60));
+  const secs=Math.floor((d%(1000*60))/1000);
+  countdown.innerHTML="Countdown to our date: "+days+"d "+hrs+"h "+mins+"m "+secs+"s";
+},1000);
+
+/* NO button trolling */
+const texts=[
+"No is illegal 😤",
+"Nice try cutie 😌",
+"You thought NO was an option?",
+"Stop running from love 😂",
+"Destiny says YES 💘",
+"You can't escape me 😎",
+"Try again… press YES 😏",
+"Mission failed successfully 😂"
+];
+
+let yesSize=1;
+function moveNo(){
+  no.style.left=Math.random()*window.innerWidth+"px";
+  no.style.top=Math.random()*window.innerHeight+"px";
+  comment.innerText=texts[Math.floor(Math.random()*texts.length)];
+  yesSize+=0.15;
+  yes.style.transform="scale("+yesSize+")";
+}
+
+no.onmouseover=moveNo;
+no.onclick=moveNo;
+
+/* YES click */
+yes.onclick=()=>{
+  questionBox.classList.add("hidden");
+  yesScreen.classList.remove("hidden");
+};
+
+/* raining hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*3+3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},250);
+</script>
+
+</body>
+</html>
